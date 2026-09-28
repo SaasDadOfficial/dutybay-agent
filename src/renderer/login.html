@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="style.css" />
+  <title>DutyBay Agent — Login</title>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand">DutyBay Agent</div>
+    <div class="card" style="display:flex; flex-direction:column; gap:12px;">
+      <!-- <input id="serverUrl" placeholder="Server URL (e.g. https://app.dutybay.com)" /> -->
+      <input id="email" placeholder="Email"  style="height: 30px; padding: 5px;border-radius: 5px;" />
+      <input id="password" type="password" placeholder="Password" style="height: 30px; padding: 5px;border-radius: 5px;" />
+      <button class="btn-primary" id="loginBtn">Log In</button>
+      <div id="err" class="error"></div>
+    </div>
+    <div class="muted">Your credentials are sent directly to your DutyBay server.</div>
+  </div>
+  <script src="login.js"></script>
+</body>
+</html>

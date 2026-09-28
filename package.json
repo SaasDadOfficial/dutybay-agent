@@ -1,0 +1,65 @@
+{
+  "name": "dutybay-agent",
+  "version": "1.0.0",
+  "description": "DutyBay Desktop Agent - time tracking client",
+  "main": "src/main.js",
+  "author": "DutyBay",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "build:win": "set CSC_IDENTITY_AUTO_DISCOVERY=false && electron-builder --win --publish never",
+    "build:mac": "electron-builder --mac --publish never",
+    "build:linux": "electron-builder --linux --publish never",
+    "build:all": "electron-builder -mwl --publish never"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "electron-store": "^8.2.0",
+    "form-data": "^4.0.0",
+    "screenshot-desktop": "^1.15.0",
+    "uiohook-napi": "^1.5.5"
+  },
+  "devDependencies": {
+    "electron": "^31.3.1",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.dutybay.agent",
+    "productName": "DutyBay Agent",
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "src/assets/logo.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "category": "public.app-category.productivity",
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Utility"
+    }
+  }
+}
