@@ -35,7 +35,8 @@
     },
     "win": {
       "target": "nsis",
-      "icon": "src/assets/logo.ico"
+      "icon": "src/assets/logo.ico",
+      "artifactName": "DutyBay-Setup-${version}.${ext}"
     },
     "nsis": {
       "oneClick": false,
