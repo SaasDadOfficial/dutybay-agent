@@ -3,7 +3,7 @@ const Store = require('electron-store');
 const store = new Store({
   name: 'dutybay-agent-config',
   defaults: {
-    serverUrl: 'http://127.0.0.1:8000',
+    serverUrl: 'https://dutybay.com/',
     token: null,
     user: null,
     company: null,

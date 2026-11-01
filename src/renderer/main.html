@@ -57,9 +57,12 @@
           <span class="icon">&#9654;</span> Resume
         </button>
       </div>
-      <button class="btn-danger btn-full" id="finishBtn">
-        <span class="icon">&#9632;</span> Finish Work Today
-      </button>
+      <!-- Wrapper holds the hover tooltip, because a disabled button can't show it reliably -->
+      <div id="finishWrap" class="finish-wrap" style="display:none;">
+        <button class="btn-danger btn-full" id="finishBtn">
+          <span class="icon">&#9632;</span> Finish Work Today
+        </button>
+      </div>
     </div>
 
     <div class="error" id="err"></div>

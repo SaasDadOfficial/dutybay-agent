@@ -3,9 +3,10 @@ const err = document.getElementById('err');
 
 btn.addEventListener('click', async () => {
   err.textContent = '';
-  const serverUrl = 'http://127.0.0.1:8000/';
+  const serverUrl = 'https://dutybay.com/';
   const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
+  const remember = document.getElementById('remember').checked;
 
   if (!serverUrl || !email || !password) {
     err.textContent = 'Please fill in all fields.';
@@ -15,7 +16,7 @@ btn.addEventListener('click', async () => {
   btn.disabled = true;
   btn.textContent = 'Logging in...';
 
-  const result = await window.agent.login(serverUrl, email, password);
+  const result = await window.agent.login(serverUrl, email, password, remember);
 
   btn.disabled = false;
   btn.textContent = 'Log In';

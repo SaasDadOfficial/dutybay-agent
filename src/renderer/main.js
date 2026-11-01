@@ -11,6 +11,7 @@ const startBtn = document.getElementById('startBtn');
 const pauseBtn = document.getElementById('pauseBtn');
 const resumeBtn = document.getElementById('resumeBtn');
 const finishBtn = document.getElementById('finishBtn');
+const finishWrap = document.getElementById('finishWrap');
 
 // Falls back to 8h only until the first state update arrives from main
 // (which carries dailyTargetSeconds straight from the server's user.daily_target_hours).
@@ -30,6 +31,15 @@ function formatShort(totalSeconds) {
   return `${m}m`;
 }
 
+function setFinishEnabled(enabled) {
+  finishBtn.disabled = !enabled;
+  finishBtn.style.opacity = enabled ? '1' : '0.4';
+  // pointer-events none lets the hover fall through to the wrapper, so the tooltip shows
+  finishBtn.style.pointerEvents = enabled ? '' : 'none';
+  finishWrap.style.cursor = enabled ? '' : 'not-allowed';
+  finishWrap.title = enabled ? '' : 'Please finish your work first';
+}
+
 function updateButtons(status, activeSeconds) {
   document.body.dataset.status = status || 'idle';
 
@@ -38,14 +48,16 @@ function updateButtons(status, activeSeconds) {
   startBtn.style.display = 'none';
   pauseBtn.style.display = 'none';
   resumeBtn.style.display = 'none';
-  finishBtn.style.display = 'none';
+  finishWrap.style.display = 'none';
 
   if (status === 'active') {
     pauseBtn.style.display = '';
-    if (targetReached) finishBtn.style.display = '';
+    finishWrap.style.display = '';
+    setFinishEnabled(targetReached);
   } else if (status === 'paused') {
     resumeBtn.style.display = '';
-    if (targetReached) finishBtn.style.display = '';
+    finishWrap.style.display = '';
+    setFinishEnabled(targetReached);
   } else {
     // idle
     startBtn.style.display = '';
@@ -53,7 +65,6 @@ function updateButtons(status, activeSeconds) {
 }
 
 function render(state) {
-  console.log('RENDER STATE:', JSON.stringify(state));
   if (!state) return;
   const activeSeconds = state.activeSeconds || 0;
   if (state.dailyTargetSeconds) DAILY_TARGET_SECONDS = state.dailyTargetSeconds;
@@ -81,5 +92,8 @@ window.agent.onStateUpdate(render);
 startBtn.addEventListener('click', () => window.agent.start());
 pauseBtn.addEventListener('click', () => window.agent.pause());
 resumeBtn.addEventListener('click', () => window.agent.resume());
-finishBtn.addEventListener('click', () => window.agent.finish());
+finishBtn.addEventListener('click', () => {
+  if (finishBtn.disabled) return;
+  window.agent.finish();
+});
 document.getElementById('logoutBtn').addEventListener('click', () => window.agent.logout());

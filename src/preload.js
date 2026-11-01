@@ -1,7 +1,8 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('agent', {
-  login: (serverUrl, email, password) => ipcRenderer.invoke('agent:login', serverUrl, email, password),
+  login: (serverUrl, email, password, remember) =>
+  ipcRenderer.invoke('agent:login', serverUrl, email, password, remember),
   logout: () => ipcRenderer.invoke('agent:logout'),
   getState: () => ipcRenderer.invoke('agent:getState'),
   start: () => ipcRenderer.invoke('agent:start'),
